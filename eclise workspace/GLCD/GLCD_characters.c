@@ -10,7 +10,7 @@
 #include "GLCD_characters.h"
 
 void GLCD_writeCharacter(const uint8 character){
-	if((character >= 0 ) && (character <91)){
+	if((character-32 >= 0 ) && (character-32 <91)){
 		GLCD_sendData(ASCII[character - 32] , 6);
 	}
 }

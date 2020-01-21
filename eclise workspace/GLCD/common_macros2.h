@@ -20,7 +20,7 @@
 #define MAKE_INPUT(REG,BIT) (REG &= (~(1<<BIT)))
 
 /* write a specific bit in register to 0 or 1 regardless it's current value*/
-#define WRITE_BIT(REG , BIT , VAL) (REG = ((REG & ~(1<<(BIT))) | ((VAL) << (BIT))))
+#define WRITE_BIT(REG , BIT , VAL) ((REG) = (((REG) & ~(1<<(BIT))) | ((VAL) << (BIT))))
 
 /*
  * insert macro uses math.h

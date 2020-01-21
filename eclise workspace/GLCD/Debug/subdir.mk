@@ -4,18 +4,21 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../GLCD_2D.c \
 ../GLCD_characters.c \
 ../glcd.c \
 ../main.c \
 ../spi.c 
 
 OBJS += \
+./GLCD_2D.o \
 ./GLCD_characters.o \
 ./glcd.o \
 ./main.o \
 ./spi.o 
 
 C_DEPS += \
+./GLCD_2D.d \
 ./GLCD_characters.d \
 ./glcd.d \
 ./main.d \

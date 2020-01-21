@@ -3,7 +3,7 @@ Archive member included because of file (symbol)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm16.o (exit)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
-                              ./GLCD_characters.o (__do_copy_data)
+                              ./GLCD_2D.o (__do_copy_data)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
                               ./glcd.o (__fixunssfsi)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
@@ -45,6 +45,7 @@ signature        0x00840000         0x00000400         rw !x
 Linker script and memory map
 
 LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm16.o
+LOAD ./GLCD_2D.o
 LOAD ./GLCD_characters.o
 LOAD ./glcd.o
 LOAD ./main.o
@@ -143,7 +144,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x10ec
+.text           0x00000000     0x148c
  *(.vectors)
  .vectors       0x00000000       0x54 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm16.o
                 0x00000000                __vectors
@@ -218,6 +219,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x0000007e                __vector_16
                 0x0000007e                __vector_18
                 0x0000007e                __vector_20
+ .text          0x00000082        0x0 ./GLCD_2D.o
  .text          0x00000082        0x0 ./GLCD_characters.o
  .text          0x00000082        0x0 ./glcd.o
  .text          0x00000082        0x0 ./main.o
@@ -250,52 +252,73 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x00000a84                __fpcmp_parts_f
                 0x00000b36                . = ALIGN (0x2)
  *(.text.*)
+ .text.GLCD_clearImage
+                0x00000b36       0x40 ./GLCD_2D.o
+                0x00000b36                GLCD_clearImage
+ .text.GLCD_update
+                0x00000b76       0x22 ./GLCD_2D.o
+                0x00000b76                GLCD_update
+ .text.GLCD_writePixel
+                0x00000b98       0xda ./GLCD_2D.o
+                0x00000b98                GLCD_writePixel
+ .text.GLCD_drawRectangle
+                0x00000c72       0x8a ./GLCD_2D.o
+                0x00000c72                GLCD_drawRectangle
+ .text.GLCD_drawimage
+                0x00000cfc       0xd8 ./GLCD_2D.o
+                0x00000cfc                GLCD_drawimage
  .text.GLCD_writeCharacter
-                0x00000b36       0x3c ./GLCD_characters.o
-                0x00000b36                GLCD_writeCharacter
+                0x00000dd4       0x52 ./GLCD_characters.o
+                0x00000dd4                GLCD_writeCharacter
  .text.GLCD_writeString
-                0x00000b72       0x6e ./GLCD_characters.o
-                0x00000b72                GLCD_writeString
+                0x00000e26       0x70 ./GLCD_characters.o
+                0x00000e26                GLCD_writeString
  .text.GLCD_init
-                0x00000be0       0x76 ./glcd.o
-                0x00000be0                GLCD_init
+                0x00000e96       0x76 ./glcd.o
+                0x00000e96                GLCD_init
  .text.GLCD_sendCommand
-                0x00000c56       0x3e ./glcd.o
-                0x00000c56                GLCD_sendCommand
+                0x00000f0c       0x3e ./glcd.o
+                0x00000f0c                GLCD_sendCommand
  .text.GLCD_sendData
-                0x00000c94       0x5e ./glcd.o
-                0x00000c94                GLCD_sendData
+                0x00000f4a       0x70 ./glcd.o
+                0x00000f4a                GLCD_sendData
  .text.GLCD_reset
-                0x00000cf2      0x126 ./glcd.o
-                0x00000cf2                GLCD_reset
- .text.main     0x00000e18       0x16 ./main.o
-                0x00000e18                main
+                0x00000fba      0x126 ./glcd.o
+                0x00000fba                GLCD_reset
+ .text.GLCD_goto
+                0x000010e0       0x42 ./glcd.o
+                0x000010e0                GLCD_goto
+ .text.GLCD_clear
+                0x00001122       0x58 ./glcd.o
+                0x00001122                GLCD_clear
+ .text.main     0x0000117a       0x54 ./main.o
+                0x0000117a                main
  .text.SPI_init
-                0x00000e2e      0x1d0 ./spi.o
-                0x00000e2e                SPI_init
+                0x000011ce      0x1d0 ./spi.o
+                0x000011ce                SPI_init
  .text.SPI_activateSlave
-                0x00000ffe       0x1c ./spi.o
-                0x00000ffe                SPI_activateSlave
+                0x0000139e       0x1c ./spi.o
+                0x0000139e                SPI_activateSlave
  .text.SPI_deActivateSlave
-                0x0000101a       0x1c ./spi.o
-                0x0000101a                SPI_deActivateSlave
+                0x000013ba       0x1c ./spi.o
+                0x000013ba                SPI_deActivateSlave
  .text.SPI_sendByte
-                0x00001036       0x26 ./spi.o
-                0x00001036                SPI_sendByte
+                0x000013d6       0x26 ./spi.o
+                0x000013d6                SPI_sendByte
  .text.SPI_recieveByte
-                0x0000105c       0x1e ./spi.o
-                0x0000105c                SPI_recieveByte
- .text.libgcc   0x0000107a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .text.libgcc   0x0000107a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
- .text.libgcc   0x0000107a       0x38 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
-                0x0000107a                __prologue_saves__
- .text.libgcc   0x000010b2       0x36 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
-                0x000010b2                __epilogue_restores__
-                0x000010e8                . = ALIGN (0x2)
+                0x000013fc       0x1e ./spi.o
+                0x000013fc                SPI_recieveByte
+ .text.libgcc   0x0000141a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x0000141a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x0000141a       0x38 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+                0x0000141a                __prologue_saves__
+ .text.libgcc   0x00001452       0x36 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+                0x00001452                __epilogue_restores__
+                0x00001488                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000010e8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
-                0x000010e8                exit
-                0x000010e8                _exit
+ .fini9         0x00001488        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x00001488                exit
+                0x00001488                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -314,82 +337,92 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000010e8        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .fini0         0x00001488        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x000010ec                _etext = .
+                0x0000148c                _etext = .
 
-.data           0x00800060      0x23e load address 0x000010ec
+.data           0x00800060      0x484 load address 0x0000148c
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm16.o
+ .data          0x00800060        0x0 ./GLCD_2D.o
  .data          0x00800060        0x0 ./GLCD_characters.o
  .data          0x00800060        0x0 ./glcd.o
- .data          0x00800060        0xc ./main.o
- .data          0x0080006c        0x0 ./spi.o
- .data          0x0080006c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .data          0x0080006c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
- .data          0x0080006c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
- .data          0x0080006c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
- .data          0x0080006c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
- .data          0x0080006c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_gt_sf.o)
- .data          0x0080006c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
- .data          0x0080006c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
- .data          0x0080006c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
- .data          0x0080006c        0x8 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
-                0x0080006c                __thenan_sf
- .data          0x00800074        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
- .data          0x00800074        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
- .data          0x00800074        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
- .data          0x00800074        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
- .data          0x00800074        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
+ .data          0x00800060        0x0 ./main.o
+ .data          0x00800060        0x0 ./spi.o
+ .data          0x00800060        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .data          0x00800060        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .data          0x00800060        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+ .data          0x00800060        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+ .data          0x00800060        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+ .data          0x00800060        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_gt_sf.o)
+ .data          0x00800060        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+ .data          0x00800060        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+ .data          0x00800060        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+ .data          0x00800060        0x8 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
+                0x00800060                __thenan_sf
+ .data          0x00800068        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+ .data          0x00800068        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+ .data          0x00800068        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
+ .data          0x00800068        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
+ .data          0x00800068        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
  *(.data*)
+ .data.image    0x00800068      0x1f8 ./GLCD_2D.o
  .data.spiLCDconfig
-                0x00800074        0x8 ./glcd.o
-                0x00800074                spiLCDconfig
+                0x00800260        0x8 ./glcd.o
+                0x00800260                spiLCDconfig
  *(.rodata)
  *(.rodata*)
- .rodata.ASCII  0x0080007c      0x222 ./GLCD_characters.o
-                0x0080007c                ASCII
+ .rodata.CIRCLE_8_8
+                0x00800268       0x40 ./GLCD_2D.o
+                0x00800268                CIRCLE_8_8
+ .rodata.CIRCLE_5_5
+                0x008002a8       0x19 ./GLCD_2D.o
+                0x008002a8                CIRCLE_5_5
+ .rodata.ASCII  0x008002c1      0x222 ./GLCD_characters.o
+                0x008002c1                ASCII
  *(.gnu.linkonce.d*)
-                0x0080029e                . = ALIGN (0x2)
-                0x0080029e                _edata = .
-                0x0080029e                PROVIDE (__data_end, .)
+                0x008004e4                . = ALIGN (0x2)
+ *fill*         0x008004e3        0x1 00
+                0x008004e4                _edata = .
+                0x008004e4                PROVIDE (__data_end, .)
 
-.bss            0x0080029e        0x0
-                0x0080029e                PROVIDE (__bss_start, .)
+.bss            0x008004e4        0x0
+                0x008004e4                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x0080029e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm16.o
- .bss           0x0080029e        0x0 ./GLCD_characters.o
- .bss           0x0080029e        0x0 ./glcd.o
- .bss           0x0080029e        0x0 ./main.o
- .bss           0x0080029e        0x0 ./spi.o
- .bss           0x0080029e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .bss           0x0080029e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
- .bss           0x0080029e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
- .bss           0x0080029e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
- .bss           0x0080029e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
- .bss           0x0080029e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_gt_sf.o)
- .bss           0x0080029e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
- .bss           0x0080029e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
- .bss           0x0080029e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
- .bss           0x0080029e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
- .bss           0x0080029e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
- .bss           0x0080029e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
- .bss           0x0080029e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
- .bss           0x0080029e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
- .bss           0x0080029e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
+ .bss           0x008004e4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm16.o
+ .bss           0x008004e4        0x0 ./GLCD_2D.o
+ .bss           0x008004e4        0x0 ./GLCD_characters.o
+ .bss           0x008004e4        0x0 ./glcd.o
+ .bss           0x008004e4        0x0 ./main.o
+ .bss           0x008004e4        0x0 ./spi.o
+ .bss           0x008004e4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .bss           0x008004e4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .bss           0x008004e4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+ .bss           0x008004e4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+ .bss           0x008004e4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+ .bss           0x008004e4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_gt_sf.o)
+ .bss           0x008004e4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+ .bss           0x008004e4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+ .bss           0x008004e4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+ .bss           0x008004e4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
+ .bss           0x008004e4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+ .bss           0x008004e4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+ .bss           0x008004e4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
+ .bss           0x008004e4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
+ .bss           0x008004e4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
  *(.bss*)
  *(COMMON)
-                0x0080029e                PROVIDE (__bss_end, .)
-                0x000010ec                __data_load_start = LOADADDR (.data)
-                0x0000132a                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x008004e4                PROVIDE (__bss_end, .)
+                0x0000148c                __data_load_start = LOADADDR (.data)
+                0x00001910                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x0080029e        0x0
-                0x0080029e                PROVIDE (__noinit_start, .)
+.noinit         0x008004e4        0x0
+                0x008004e4                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x0080029e                PROVIDE (__noinit_end, .)
-                0x0080029e                _end = .
-                0x0080029e                PROVIDE (__heap_start, .)
+                0x008004e4                PROVIDE (__noinit_end, .)
+                0x008004e4                _end = .
+                0x008004e4                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -407,19 +440,21 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
 .signature
  *(.signature*)
 
-.stab           0x00000000      0xdc8
+.stab           0x00000000     0x1458
  *(.stab)
- .stab          0x00000000      0x474 ./GLCD_characters.o
- .stab          0x00000474      0x4b0 ./glcd.o
-                                0x714 (size before relaxing)
- .stab          0x00000924      0x168 ./main.o
-                                0x3cc (size before relaxing)
- .stab          0x00000a8c      0x33c ./spi.o
+ .stab          0x00000000      0x720 ./GLCD_2D.o
+ .stab          0x00000720      0x210 ./GLCD_characters.o
+                                0x474 (size before relaxing)
+ .stab          0x00000930      0x60c ./glcd.o
+                                0x870 (size before relaxing)
+ .stab          0x00000f3c      0x1e0 ./main.o
+                                0x444 (size before relaxing)
+ .stab          0x0000111c      0x33c ./spi.o
                                 0x63c (size before relaxing)
 
-.stabstr        0x00000000      0xc65
+.stabstr        0x00000000      0xe7c
  *(.stabstr)
- .stabstr       0x00000000      0xc65 ./GLCD_characters.o
+ .stabstr       0x00000000      0xe7c ./GLCD_2D.o
 
 .stab.excl
  *(.stab.excl)

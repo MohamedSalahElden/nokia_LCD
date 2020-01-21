@@ -32,10 +32,10 @@ void GLCD_sendCommand(uint8 command){
 	WRITE_BIT(GLCD_DATA , DC , 1);	/* make DC pin to logic high for data operation */
 	SPI_deActivateSlave();			/*disable the slave */
 }
-void GLCD_sendData(uint8 * data , uint8 size){
+void GLCD_sendData(uint8 * data , uint16 size){
 	WRITE_BIT(GLCD_DATA , DC , 1);
 	SPI_activateSlave();
-	uint8 i = 0;
+	uint16 i = 0;
 	for(; i<size ; i++){
 		SPI_sendByte(data[i]);
 	}
@@ -45,4 +45,23 @@ void GLCD_reset(void){
 	WRITE_BIT(GLCD_DATA , RST , 0);
 	_delay_ms(100);
 	WRITE_BIT(GLCD_DATA , RST , 1);
+}
+void GLCD_goto(uint8 bank , uint8 byte){
+	if((bank < 0) || (bank > 5)){return ;}
+	if((byte < 0) || (byte >= 84)){return ;}
+	uint8 y_address = 0b01000000 + bank ;
+	uint8 x_address = 0b10000000 + byte ;
+	GLCD_sendCommand(y_address);
+	GLCD_sendCommand(x_address);
+}
+
+void GLCD_clear(void){
+	GLCD_goto(0 , 0);
+	int i = 0;
+	WRITE_BIT(GLCD_DATA , DC , 1);
+	SPI_activateSlave();
+	for(i=0 ; i<504 ; i++){
+		SPI_sendByte(0X00);
+	}
+	SPI_deActivateSlave();
 }

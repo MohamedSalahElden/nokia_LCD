@@ -20,7 +20,8 @@
 
 void GLCD_init(void);
 void GLCD_sendCommand(uint8 command);
-void GLCD_sendData(uint8* data , uint8 size);
+void GLCD_sendData(uint8* data , uint16 size);
 void GLCD_reset(void);
-
+void GLCD_goto(uint8 bank , uint8 byte);
+void GLCD_clear(void);
 #endif /* GLCD_H_ */
